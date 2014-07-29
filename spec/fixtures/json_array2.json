@@ -1,0 +1,35 @@
+[{
+  "identifier": "382383",
+  "name":"ABC Heating and Cooling",
+  "contact":{
+    "website": "abc.com",
+    "phone":"",
+    "email":"",
+    "address":{"street1":"3266 Investment Blvd",
+      "city":"Hayward",
+      "state":"CA",
+      "zipcode":"94545"
+    }
+  },
+  "licensing_organization":"CSLB",
+  "license_number":"382383"
+},
+{
+  "identifier": "877873",
+  "name":"Advanced Home Energy",
+  "contact":{
+    "website": "advanced.com",
+    "phone":"",
+    "email":"",
+    "address":{"street1":"1356 South 50th St",
+      "city":"Richmond",
+      "state":"CA",
+      "zipcode":"94804"
+    }
+  },
+  "licensing_organization":"CSLB",
+  "license_number":"877873"
+},
+{
+  "a": 400
+}]

@@ -1,18 +1,12 @@
 module MatchJSON
   module ValueErrors
-    def value_errors
-      unless mismatch_hash.empty?
-        "Mismatched Values:\n\n".light_cyan + mismatch_output.join("\n")
-      end.to_s
-    end
-
+    # ErrorDetails
     def mismatch_hash
-      mismatch_hash = {}
-
-      expected_as_hash.keys.each do |key|
-        mismatch_hash.merge!(key => value_diff(key)) unless no_mismatch_error?(key)
+      hash = {}
+      parsed_expected.keys.each do |key|
+        hash.merge!(key => value_diff(key)) unless no_mismatch_error?(key)
       end
-      mismatch_hash
+      hash
     end
 
     def no_mismatch_error?(key)
@@ -20,26 +14,32 @@ module MatchJSON
     end
 
     def key_mismatch?(key)
-      actual_as_hash[key].nil?
+      parsed_actual[key].nil?
     end
 
     def values_match?(key)
-      expected_as_hash[key] == actual_as_hash[key]
+      parsed_expected[key] == parsed_actual[key]
     end
 
     def value_diff(key)
       {
-        :expected => expected_as_hash[key],
-        :actual => actual_as_hash[key]
+        :expected => parsed_expected[key],
+        :actual => parsed_actual[key]
       }
     end
 
     def mismatch_output
-      mismatch_hash.map do |key, values|
-        "Key: #{key}".white.colorize(:background => :blue) + "\n\t" +
-        "Expected: #{values[:expected]}".light_green + "\n\t" +
-        "Actual: #{values[:actual]}".light_yellow + "\n "
+      output = "Mismatched Values:\n\n".bold.red
+
+      mismatch_hash.each_pair do |key, values|
+        output <<
+        "Key: #{key}".white.colorize(:background => :blue) << "\n\t " <<
+        "Expected: #{values[:expected]}".light_green << "\n\t " <<
+        "Actual: #{values[:actual]}".light_yellow << "\n\n "
       end
+
+      output
     end
+
   end
 end
